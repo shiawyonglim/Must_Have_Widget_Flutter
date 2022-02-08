@@ -16,15 +16,13 @@ class MyApp extends StatelessWidget {
           title: const Text('Welcome to Flutter'),
         ),
         body: const Center(
-          //child: MyStatefulWidget(),
-          child: Text('hello'),
+          child: MyStatefulWidget(),
         ),
       ),
     );
   }
 }
 
-/*stepper
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -40,7 +38,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Stepper(
       currentStep: _index,
       onStepCancel: () {
-        if (0 <= _index) {
+        if (_index == 0) {
+          setState(() {
+            _index -= 0;
+          });
+        } else {
           setState(() {
             _index -= 1;
           });
@@ -69,4 +71,4 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ],
     );
   }
-}*/
+}
