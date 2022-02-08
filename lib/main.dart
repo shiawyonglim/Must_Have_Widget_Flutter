@@ -9,30 +9,109 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: Center(
-          child: Container(
-            width: 300,
-            height: 150,
-            color: Colors.red,
-            padding: const EdgeInsets.all(10),
-            child: const FittedBox(
-              child: Text(
-                'Hello World!',
-                style: TextStyle(
-                    fontSize: 100,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('hello world'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CostumScearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search),
           ),
-        ),
+        ],
       ),
+    );
+  }
+}
+
+class CostumScearchDelegate extends SearchDelegate {
+  List<String> searchTerms = [
+    'apple',
+    'pinaple',
+    'oranges',
+    'blueberries',
+    'watermelon',
+  ];
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  Widget buildReusults(BuildContext context) {
+    List<String> matchquery = [];
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
+        matchquery.add(fruit);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchquery.length,
+      itemBuilder: (context, index) {
+        var result = matchquery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchquery = [];
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
+        matchquery.add(fruit);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchquery.length,
+      itemBuilder: (context, index) {
+        var result = matchquery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchquery = [];
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
+        matchquery.add(fruit);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchquery.length,
+      itemBuilder: (context, index) {
+        var result = matchquery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
     );
   }
 }
